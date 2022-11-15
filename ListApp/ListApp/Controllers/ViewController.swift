@@ -90,6 +90,7 @@ class ViewController: UIViewController{
         } )
     }
     
+    
     func presentWarningAlert(){
         presentAlert(title: "Tamam",
                      message: "Liste elemanı boş olamaz",
