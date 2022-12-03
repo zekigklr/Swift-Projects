@@ -58,7 +58,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
             ac.addAction(UIAlertAction(title: website, style: .default, handler: openPage))
         }
         
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         ac.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(ac, animated: true)
     }
