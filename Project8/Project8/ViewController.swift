@@ -23,6 +23,7 @@ class ViewController: UIViewController {
         }
     }
     var level = 1
+    var maxLevel = 2
     
     override func loadView() {
         view = UIView()
@@ -123,6 +124,7 @@ class ViewController: UIViewController {
             buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor, constant: 20),
             buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)
+           
             
         ])
         
@@ -139,6 +141,8 @@ class ViewController: UIViewController {
                 letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 36)
                 letterButton.setTitle("WWW", for: .normal)
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
+                letterButton.layer.borderWidth = 1
+                letterButton.layer.borderColor = UIColor.lightGray.cgColor
 
 
                 // give the button some temporary text so we can see it on-screen
@@ -162,6 +166,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadLevel()
+        
+        
     }
     
     @objc func letterTapped(_ sender: UIButton) {
@@ -192,6 +198,15 @@ class ViewController: UIViewController {
                     present(ac, animated: true)
                 }
             }
+            else {
+                let ac = UIAlertController(title: "Try again", message: "Are you ready ?", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: nil))
+                present(ac, animated: true)
+                
+                score -= 1
+                
+                
+        }
     }
 
     @objc func clearTapped(_ sender: UIButton) {
@@ -243,14 +258,20 @@ class ViewController: UIViewController {
         }
     }
     func levelUp(action: UIAlertAction) {
-        level += 1
-        solutions.removeAll(keepingCapacity: true)
+        if level >= maxLevel {
+                    level = 1
+                }
+                else {
+                    level += 1
+                }
+                
+                solutions.removeAll(keepingCapacity: true)
 
-        loadLevel()
+                loadLevel()
 
-        for btn in letterButtons {
-            btn.isHidden = false
-        }
+                for button in letterButtons {
+                    button.isHidden = false
+                }
     }
 
 }
